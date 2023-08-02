@@ -1,4 +1,4 @@
-FROM rust:1.71.0-buster as builder
+FROM rust:1.71.0-buster@sha256:a57331777cec6871e1a4327eef7f79852ba457b447a54d96585a92b778adc193 as builder
 
 WORKDIR /build
 
@@ -10,7 +10,7 @@ RUN patch -p1 -li fixed_port.patch && \
     cargo build --release -p phira-mp-server && \
     ls target/release/
 
-FROM debian:bullseye-slim as libenv
+FROM debian:bullseye-slim@sha256:fd3b382990294beb46aa7549edb9f40b11a070f959365ef7f316724b2e425f90 as libenv
 
 WORKDIR /libenv
 
@@ -19,7 +19,7 @@ RUN ARCH=$([ "$(uname -m)" = "x86_64" ] && echo "x86_64" || echo "aarch64") && \
     cp /lib/${ARCH}-linux-gnu/libgcc_s.so.1 ${ARCH}-linux-gnu && \
     ls ${ARCH}-linux-gnu
 
-FROM gcr.io/distroless/base-debian11:nonroot
+FROM gcr.io/distroless/base-debian11:nonroot@sha256:c62385962234a3dae5c9e9777dedc863d99f676b7202cd073e90b06e46021994
 
 WORKDIR /app
 COPY --from=builder /build/target/release/phira-mp-server /app/
