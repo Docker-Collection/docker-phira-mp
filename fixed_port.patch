@@ -1,0 +1,26 @@
+diff --git a/phira-mp-server/src/main.rs b/phira-mp-server/src/main.rs
+index 7a76a21..8760f37 100644
+--- a/phira-mp-server/src/main.rs
++++ b/phira-mp-server/src/main.rs
+@@ -26,6 +26,8 @@ use uuid::Uuid;
+ pub type SafeMap<K, V> = RwLock<HashMap<K, V>>;
+ pub type IdMap<V> = SafeMap<Uuid, V>;
+ 
++use std::env;
++
+ fn vacant_entry<V>(map: &mut HashMap<Uuid, V>) -> VacantEntry<'_, Uuid, V> {
+     let mut id = Uuid::new_v4();
+     while map.contains_key(&id) {
+@@ -83,7 +85,11 @@ pub fn init_log(file: &str) -> Result<WorkerGuard> {
+ async fn main() -> Result<()> {
+     let _guard = init_log("phira-mp")?;
+ 
+-    let port = 12346;
++    let port = match env::var("PORT") {
++        Ok(val) => val.parse::<u16>().unwrap_or(12346),
++        Err(_) => 12346,
++    };
++
+     let addrs: &[SocketAddr] = &[
+         SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), port),
+         SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), port),
