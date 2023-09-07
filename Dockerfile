@@ -1,4 +1,4 @@
-FROM rust:1.72.0-buster@sha256:06f2bcb3d97d6fd38eb33c9f4793db1952e7bed2a1d1fc9728a31cf6b00418fa as builder
+FROM rust:1.72.0-buster@sha256:4fb24496cc796fbfe03203beea18a92b2483b8833008be745e8b4e9a4cc04236 as builder
 
 WORKDIR /build
 
