@@ -10,7 +10,7 @@ RUN patch -p1 -li fixed_port.patch && \
     cargo build --release -p phira-mp-server && \
     ls target/release/
 
-FROM debian:bullseye-slim@sha256:3bc5e94a0e8329c102203c3f5f26fd67835f0c81633dd6949de0557867a87fac as libenv
+FROM debian:bullseye-slim@sha256:f794067bee57cf99c4c2b32f022a8782ad47c89e11f935d3ca5fdc7414cc465d as libenv
 
 WORKDIR /libenv
 
