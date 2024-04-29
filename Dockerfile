@@ -19,7 +19,7 @@ RUN ARCH=$([ "$(uname -m)" = "x86_64" ] && echo "x86_64" || echo "aarch64") && \
     cp /lib/${ARCH}-linux-gnu/libgcc_s.so.1 ${ARCH}-linux-gnu && \
     ls ${ARCH}-linux-gnu
 
-FROM gcr.io/distroless/base-debian11:nonroot@sha256:0ba510e7d2cd07b3481c6760b2f571724b337d56a6788b9d28d62afa3a0d9371
+FROM gcr.io/distroless/base-debian11:nonroot@sha256:3dc7f2b9ffc1df63c5e8e6820e96ce41d5043716aba8a547206fc07cc6c5f3d1
 
 WORKDIR /app
 COPY --from=builder /build/target/release/phira-mp-server /app/
